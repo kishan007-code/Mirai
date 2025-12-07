@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirai Education Portal</title>
+    <style>
+        :root {
+            --primary: #2c3e50; /* Navy */
+            --accent: #e74c3c;  /* Red */
+            --bg: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- Header --- */
+        header {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            padding-bottom: 10px;
+            margin: 0;
+        }
+
+        /* --- SECTION A: The Big Cards (Direct Links) --- */
+        .section-title {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 60px;
+        }
+
+        /* UPDATED BIG CARD STYLING */
+        .big-card {
+            background: var(--white);
+            flex: 1 1 250px;
+            padding: 40px 20px;
+            border-radius: 10px;
+            
+            /* The Boundary */
+            border: 2px solid #000; 
+            
+            text-align: center;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            
+            /* Smooth transitions for color, border, and glow */
+            transition: all 0.3s ease; 
+        }
+
+        .big-card:hover {
+            transform: translateY(-5px);
+            
+            /* Change border to Red */
+            border-color: var(--accent);
+            
+            /* The Red Glow Effect */
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6); 
+        }
+
+        /* --- SECTION B: The Category Cards (Expandable) --- */
+        .practice-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .category-card {
+            background: var(--white);
+            flex: 1 1 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Standard shadow for these */
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .category-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #eef2f3;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .category-header:hover {
+            background: #e0e6e8;
+        }
+
+        .options-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: var(--white);
+        }
+
+        .sub-link {
+            display: block;
+            padding: 15px 20px;
+            border-top: 1px solid #f0f0f0;
+            text-decoration: none;
+            color: #555;
+            transition: padding-left 0.2s;
+        }
+
+        .sub-link:hover {
+            padding-left: 30px;
+            color: var(--accent);
+            background-color: #fafafa;
+        }
+
+        .category-card.open .options-menu {
+            max-height: 300px;
+        }
+        
+        .arrow {
+            transition: transform 0.3s;
+        }
+        .category-card.open .arrow {
+            transform: rotate(180deg);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MIRAI EDUCATION</h1>
+    </header>
+
+    <div class="section-title">Full Mock Tests</div>
+    <div class="main-grid">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfttKOEbbrK5xhY-qwaSVXMrjAyVZ1HVvPnhb_ajd-TnC-a7Q/viewform?usp=dialog
+" target="_blank" rel="noopener noreferrer" class="big-card">
+            Mock Test I
+        </a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScJsMIt4Hc4aq_KZjFolQ787MaF4id-UVcmWM6ii3a3mbyGOQ/viewform?usp=dialog
+" target="_blank" rel="noopener noreferrer" class="big-card">
+            Mock Test II
+        </a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd9t9d65qkjpvLoWNDjHdopz00laEpYOAXrgQhV_wIt2mZREw/viewform?usp=dialog
+" target="_blank" rel="noopener noreferrer" class="big-card">
+            Mock Test III
+        </a>
+    </div>
+
+    <div class="section-title">Skill Practice</div>
+    <div class="practice-grid">
+        
+        <div class="category-card" onclick="toggleMenu(this)">
+            <div class="category-header">
+                Script and Vocabulary
+                <span class="arrow">▼</span>
+            </div>
+            <div class="options-menu">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScAzOnj94ABp1wIz1mp11quSGOLlZsUupXFk4djCSACKGZCpw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="sub-link">Set I</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScVKv03O4p1g9FYUh5geLi-RQdh2WUDVy-fYcNZqG9TXWG4HA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="sub-link">Set II</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSepjF65flk8pjQmmC3kzSatuk4MxHo1yU0Vx65buEIk6WagNQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="sub-link">Set III</a>
+            </div>
+        </div>
+
+        <div class="category-card" onclick="toggleMenu(this)">
+            <div class="category-header">
+                Conversation and Expression
+                <span class="arrow">▼</span>
+            </div>
+            <div class="options-menu">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScIT08qkD_Djxp11CSOpmfqwjEAUyl9UIB0HPM2Knos3IOmbw/viewform" target="_blank" rel="noopener noreferrer" class="sub-link">Set I</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUW_fCSArAyadBWcELdjsctSTeW54BM6uNyxaWQRFamBgnEQ/viewform" target="_blank" rel="noopener noreferrer" class="sub-link">Set II</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUW_fCSArAyadBWcELdjsctSTeW54BM6uNyxaWQRFamBgnEQ/viewform" target="_blank" rel="noopener noreferrer" class="sub-link">Set III</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleMenu(card) {
+            card.classList.toggle('open');
+        }
+    </script>
+
+</body>
+</html>
