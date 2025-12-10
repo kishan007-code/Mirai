@@ -6,8 +6,8 @@
     <title>Mirai Education Portal</title>
     <style>
         :root {
-            --primary: #2c3e50; /* Navy */
-            --accent: #e74c3c;  /* Red */
+            --primary: #2c3e50;
+            --accent: #e74c3c;
             --bg: #f8f9fa;
             --white: #ffffff;
         }
@@ -20,9 +20,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            animation: fadeIn 0.8s ease forwards;
         }
 
-        /* --- Header --- */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
         header {
             margin-bottom: 50px;
             text-align: center;
@@ -39,7 +42,6 @@
             margin: 0;
         }
 
-        /* --- SECTION A: The Big Cards (Direct Links) --- */
         .section-title {
             width: 100%;
             max-width: 900px;
@@ -62,37 +64,54 @@
             margin-bottom: 60px;
         }
 
-        /* UPDATED BIG CARD STYLING */
+        /* BASE BIG CARD STYLE */
         .big-card {
             background: var(--white);
             flex: 1 1 250px;
             padding: 40px 20px;
             border-radius: 10px;
-            
-            /* The Boundary */
-            border: 2px solid #000; 
-            
+            border: 2px solid #000;
             text-align: center;
             text-decoration: none;
             color: var(--primary);
             font-weight: bold;
             font-size: 1.2rem;
-            
-            /* Smooth transitions for color, border, and glow */
-            transition: all 0.3s ease; 
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
         }
 
-        .big-card:hover {
+        /* === GLARE HOVER EFFECT === */
+        .glare-hover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                -45deg,
+                hsla(0, 0%, 0%, 0) 60%,
+                rgba(255,255,255,0.4) 70%,
+                hsla(0, 0%, 0%, 0) 100%
+            );
+            transition: 950ms ease;
+            background-size: 250% 250%, 100% 100%;
+            background-repeat: no-repeat;
+            background-position: -100% -100%, 0 0;
+        }
+
+        .glare-hover:hover::before {
+            background-position: 100% 100%, 0 0;
+        }
+
+        .glare-hover:hover {
+            cursor: pointer;
             transform: translateY(-5px);
-            
-            /* Change border to Red */
             border-color: var(--accent);
-            
-            /* The Red Glow Effect */
-            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6); 
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
         }
 
-        /* --- SECTION B: The Category Cards (Expandable) --- */
+        /* CATEGORY CARDS BELOW */
         .practice-grid {
             display: flex;
             gap: 20px;
@@ -106,7 +125,7 @@
             background: var(--white);
             flex: 1 1 300px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Standard shadow for these */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             overflow: hidden;
             transition: all 0.3s ease;
         }
@@ -121,7 +140,30 @@
             font-weight: 600;
             color: var(--primary);
             font-family: 'Courier New', Courier, monospace;
+            position: relative;
+  overflow: hidden;
         }
+
+        .category-header::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.category-header:active::after {
+  animation: ripple 0.5s ease-out;
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(15); opacity: 0; }
+}
 
         .category-header:hover {
             background: #e0e6e8;
@@ -160,8 +202,34 @@
             transform: rotate(180deg);
         }
 
+        ::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+@media (max-width: 600px) {
+  .big-card {
+    flex: 1 1 calc(50% - 15px); /* Two cards per row */
+    font-size: 1rem;
+    padding: 20px 2px;
+  }
+
+  .main-grid {
+    gap: 15px;
+  }
+}
     </style>
 </head>
+
 <body>
 
     <header>
@@ -169,53 +237,70 @@
     </header>
 
     <div class="section-title">Full Mock Tests</div>
+
     <div class="main-grid">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfttKOEbbrK5xhY-qwaSVXMrjAyVZ1HVvPnhb_ajd-TnC-a7Q/viewform?usp=dialog
-" target="_blank" rel="noopener noreferrer" class="big-card">
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfttKOEbbrK5xhY-qwaSVXMrjAyVZ1HVvPnhb_ajd-TnC-a7Q/viewform?usp=dialog"
+           target="_blank" rel="noopener noreferrer" class="big-card glare-hover">
             Mock Test I
         </a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScJsMIt4Hc4aq_KZjFolQ787MaF4id-UVcmWM6ii3a3mbyGOQ/viewform?usp=dialog
-" target="_blank" rel="noopener noreferrer" class="big-card">
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScJsMIt4Hc4aq_KZjFolQ787MaF4id-UVcmWM6ii3a3mbyGOQ/viewform?usp=dialog"
+           target="_blank" rel="noopener noreferrer" class="big-card glare-hover">
             Mock Test II
         </a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd9t9d65qkjpvLoWNDjHdopz00laEpYOAXrgQhV_wIt2mZREw/viewform?usp=dialog
-" target="_blank" rel="noopener noreferrer" class="big-card">
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd9t9d65qkjpvLoWNDjHdopz00laEpYOAXrgQhV_wIt2mZREw/viewform?usp=dialog"
+           target="_blank" rel="noopener noreferrer" class="big-card glare-hover">
             Mock Test III
         </a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeJNRlZgQkzz4XtlMVVKliObr0HrucwQSbyUkVzJ1SbwP6AUQ/viewform?usp=dialog
-" target="_blank" rel="noopener noreferrer" class="big-card">
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeJNRlZgQkzz4XtlMVVKliObr0HrucwQSbyUkVzJ1SbwP6AUQ/viewform?usp=dialog"
+           target="_blank" rel="noopener noreferrer" class="big-card glare-hover">
             Mock Test IV
-        </a> 
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfALrQVQx74yWi_4YNTZRFnrL9Vk9wjX9ls1Hq_xsmn41ihsA/viewform" target="_blank" rel="noopener noreferrer" class="big-card">
-            Mock Test V
-        </a>
-         <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIDHp33YoQeJXETY8FvFhahIP1og35GrGHqbCCpOVIahIfyQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="big-card">
-            Mock Test VI
-        </a>
-</a>
-         <a href="https://forms.gle/tZ3SwGjrLQZBWuhN7" target="_blank" rel="noopener noreferrer" class="big-card">
-            Mock Test VII
-        </a>
-        </a>
-         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfZWpaR2P5GQ82PsAyYJ7f_FBTgQW2xf8T4h71iDqxSj3PKlg/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="big-card">
-            Mock Test VIII
         </a>
 
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfALrQVQx74yWi_4YNTZRFnrL9Vk9wjX9ls1Hq_xsmn41ihsA/viewform"
+           target="_blank" rel="noopener noreferrer" class="big-card glare-hover">
+            Mock Test V
+        </a>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIDHp33YoQeJXETY8FvFhahIP1og35GrGHqbCCpOVIahIfyQ/viewform?usp=dialog"
+           target="_blank" rel="noopener noreferrer" class="big-card glare-hover">
+            Mock Test VI
+        </a>
+
+        <a href="https://forms.gle/tZ3SwGjrLQZBWuhN7"
+           target="_blank" rel="noopener noreferrer" class="big-card glare-hover">
+            Mock Test VII
+        </a>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfZWpaR2P5GQ82PsAyYJ7f_FBTgQW2xf8T4h71iDqxSj3PKlg/viewform?usp=dialog"
+           target="_blank" rel="noopener noreferrer" class="big-card glare-hover">
+            Mock Test VIII
+        </a>
+        <a href="https://forms.gle/JMfJX47wm159cZEQ9"
+           target="_blank" rel="noopener noreferrer" class="big-card glare-hover">
+            TEST 9
+        </a>
 
     </div>
 
     <div class="section-title">Skill Practice</div>
+
     <div class="practice-grid">
-        
         <div class="category-card" onclick="toggleMenu(this)">
             <div class="category-header">
                 Script and Vocabulary
                 <span class="arrow">▼</span>
             </div>
             <div class="options-menu">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScAzOnj94ABp1wIz1mp11quSGOLlZsUupXFk4djCSACKGZCpw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="sub-link">Set I</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScVKv03O4p1g9FYUh5geLi-RQdh2WUDVy-fYcNZqG9TXWG4HA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="sub-link">Set II</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSepjF65flk8pjQmmC3kzSatuk4MxHo1yU0Vx65buEIk6WagNQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="sub-link">Set III</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScAzOnj94ABp1wIz1mp11quSGOLlZsUupXFk4djCSACKGZCpw/viewform?usp=dialog"
+                   class="sub-link" target="_blank" rel="noopener noreferrer">Set I</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScVKv03O4p1g9FYUh5geLi-RQdh2WUDVy-fYcNZqG9TXWG4HA/viewform?usp=dialog"
+                   class="sub-link" target="_blank" rel="noopener noreferrer">Set II</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSepjF65flk8pjQmmC3kzSatuk4MxHo1yU0Vx65buEIk6WagNQ/viewform?usp=dialog"
+                   class="sub-link" target="_blank" rel="noopener noreferrer">Set III</a>
             </div>
         </div>
 
@@ -225,9 +310,12 @@
                 <span class="arrow">▼</span>
             </div>
             <div class="options-menu">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScIT08qkD_Djxp11CSOpmfqwjEAUyl9UIB0HPM2Knos3IOmbw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="sub-link">Set I</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUW_fCSArAyadBWcELdjsctSTeW54BM6uNyxaWQRFamBgnEQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="sub-link">Set II</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScey_sGm9pmCgG_6Xer6q3tvcxGrh559oeof3GZJw0UjQ6SNg/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="sub-link">Set III</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScIT08qkD_Djxp11CSOpmfqwjEAUyl9UIB0HPM2Knos3IOmbw/viewform?usp=dialog"
+                   class="sub-link" target="_blank" rel="noopener noreferrer">Set I</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUW_fCSArAyadBWcELdjsctSTeW54BM6uNyxaWQRFamBgnEQ/viewform?usp=dialog"
+                   class="sub-link" target="_blank" rel="noopener noreferrer">Set II</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScey_sGm9pmCgG_6Xer6q3tvcxGrh559oeof3GZJw0UjQ6SNg/viewform?usp=dialog"
+                   class="sub-link" target="_blank" rel="noopener noreferrer">Set III</a>
             </div>
         </div>
 
